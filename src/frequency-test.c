@@ -7,7 +7,7 @@
 #include "include/frequency-test.h"
 
 
-int frequency_test(seq_t *seq, double *pvalue, double *param)
+int frequency_test(seq_t *seq, double *pvalue, void *param)
 {
 	unsigned int i;
 	int S;

@@ -3,6 +3,6 @@
 
 #define FREQUENCY_TEST_LENGTH 100
 
-int frequency_test(seq_t *seq, double *pvalue, double *param);
+int frequency_test(seq_t *seq, double *pvalue, void *param);
 
 #endif /* !HAVE_FREQUENCY_TEST_H */

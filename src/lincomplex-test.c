@@ -48,10 +48,10 @@ static int BerlekampMassey(seq_t *seq, unsigned int offset, unsigned int len)
 	return L;
 }
 
-int lincomplex_test(seq_t *seq, double *pvalue, double *param)
+int lincomplex_test(seq_t *seq, double *pvalue, void *param)
 {
 	//unsigned int M = param[0];
-	unsigned int M = 500;
+	unsigned int M = 2500;
 	unsigned int i, j, L, N = (int)(seq->n/M);
 	int  V[7] = { 0, 0, 0, 0, 0, 0, 0 };
 	double pi[7] = { 0.01047, 0.03125, 0.125, 0.5, 0.25, 0.0625, 0.020833 };
@@ -59,6 +59,11 @@ int lincomplex_test(seq_t *seq, double *pvalue, double *param)
 			
 	if ( seq->n < LINCOMPLEX_TEST_LENGTH ) {
 		fprintf(stderr, "Error[LinComplex Test]: Sequence length too short\n");
+		return -1;
+	}
+
+	if ( M < 500 || M > 5000 ) {
+		fprintf(stderr, "Error[LinComplex Test]: Invalid parameter\n");
 		return -1;
 	}
 

@@ -7,7 +7,7 @@
 #include "include/runs-test.h"
 
 
-int runs_test(seq_t *seq, double *pvalue, double *param)
+int runs_test(seq_t *seq, double *pvalue, void *param)
 {
 	unsigned int i;
 	int ones, V;

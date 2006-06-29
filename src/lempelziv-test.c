@@ -27,7 +27,7 @@ static void bintree_free(bintree_t *b)
 	}
 }
 
-int lempelziv_test(seq_t *seq, double *pvalue, double *param)
+int lempelziv_test(seq_t *seq, double *pvalue, void *param)
 {
 	unsigned int i, W;
 	unsigned char b;

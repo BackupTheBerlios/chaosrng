@@ -92,7 +92,7 @@ static unsigned int rank(seq_t *mat, unsigned int m)
 	return r;
 }
 
-int binmatrank_test(seq_t *seq, double *pvalue, double *param)
+int binmatrank_test(seq_t *seq, double *pvalue, void *param)
 {
 	unsigned int offset, R, R1, R2, N;
 	double stat;

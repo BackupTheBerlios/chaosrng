@@ -20,10 +20,10 @@ static unsigned int next_motif(seq_t *motif, unsigned int N)
 } 
 
 
-int serial_test(seq_t *seq, double *pvalue, double *param)
+int serial_test(seq_t *seq, double *pvalue, void *param)
 {
 	//unsigned int M = param[0];
-	unsigned int M;
+	unsigned int M = 3;
 	unsigned int i, j, k,  m, N, vm;
 	unsigned int V[3] = { 0, 0, 0 };
 	seq_t *motif;
@@ -31,16 +31,12 @@ int serial_test(seq_t *seq, double *pvalue, double *param)
 	double psi[3];
 	double stat1, stat2;
 
-	//M = ((int)log2(seq->n)) - 3; 12.15 pour n = 2000*24
-	M = 3;
 	
-/*
-	if ( M >= log((double)seq->n)/log(2.0) - 2.0 ) {
-		fprintf(stderr, "Error[Serial Test]: Sequence length too short for block size\n");
+	if ( M >= (int)(log((double)seq->n)/log(2.0)) - 2 ) {
+		fprintf(stderr, "Error[Serial Test]: Invalid parameter\n");
 		return -1;
 	}
-*/
-	//M = log((double)seq->n)/log(2.0) - 3.0;
+
 	motif = seq_new(M);
 	if ( !motif ) { 
 		fprintf(stderr, "Error[Serial Test]: Memory allocation failed\n");

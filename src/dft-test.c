@@ -9,7 +9,8 @@
 #include "include/seq.h"
 #include "include/dft-test.h"
 
-int dft_test(seq_t *seq, double *pvalue, double *param)
+
+int dft_test(seq_t *seq, double *pvalue, void *param)
 {
 	unsigned int i, N;
 	double *X, *pX, d, T;

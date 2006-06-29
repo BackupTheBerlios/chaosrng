@@ -7,7 +7,7 @@
 #include "include/vranex-test.h"
 
 
-int vranex_test(seq_t *seq, double *pvalue, double *param)
+int vranex_test(seq_t *seq, double *pvalue, void *param)
 {
 	unsigned int i, J;
 	int S, N, etat = 4;
@@ -32,6 +32,11 @@ int vranex_test(seq_t *seq, double *pvalue, double *param)
 
 	if ( S != 0 )
 		J++;
+
+	if ( J < 500 ) {
+		fprintf(stderr, "Error[VRanEx Test]: J=%d<500 Not enough excursions to compute test statistic\n", J);
+		return -3;
+	}
 
 	X = fabs(((double)X) - ((double)J))/sqrt(((double)J)*2.0*(4.0*fabs(etat)-2.0));
 

@@ -6,13 +6,8 @@
 #include "include/seq.h"
 #include "include/notm-test.h"
 
-/*
- * TODO:
- * - Passer B en argument
- * - M > 0.01*n
- */
 
-int notm_test(seq_t *seq, double *pvalue)
+int notm_test(seq_t *seq, double *pvalue, void *param)
 {
 	unsigned int i, j, W, N, M = 10, m = 3;
 	double mu, sigma2, X;
@@ -23,12 +18,15 @@ int notm_test(seq_t *seq, double *pvalue)
 	seq_init_with_uchar(&B, tab, 3);
 	seq_print(&B, 3);
 
-	/*
 	if ( seq->n < NOTM_TEST_LENGTH ) {
 		fprintf(stderr, "Error[NOTM Test]: Sequence length too short\n");
 		return -1;
 	}
-	*/
+
+	if ( M <= 0.01*seq->n ) {	
+		fprintf(stderr, "Error[NOTM Test]: Invalid parameter\n");
+		return -1;
+	}
 
 	mu = (double)(M - m + 1)/pow(2.0, m);
 	sigma2 = ((double)M)*(1.0/pow(2.0, m) - (double)(2*m-1)/pow(2.0, 2.0*m));

@@ -31,10 +31,9 @@ static unsigned int longestrun(seq_t *seq, unsigned int i, unsigned int M)
 	return lr;
 }
 
-int longestrun_test(seq_t *seq, double *pvalue, double *param)
+int longestrun_test(seq_t *seq, double *pvalue, void *param)
 {
-	//unsigned int M = param[0];
-	unsigned int N, M = 8;
+	unsigned int N;
 	typedef struct {
 		unsigned int M;
 		unsigned int nbClass;
@@ -60,20 +59,16 @@ int longestrun_test(seq_t *seq, double *pvalue, double *param)
 	double X;
 
 
-	for ( i = 0, indM = -1; i < 3; i++ ) {
-		if ( data[i].M == M )
-			indM = i;
-	}
-
-	if ( indM < 0 ) {
-		fprintf(stderr, "Error[LongestRun Test]: M is different from 8, 128 or 10000\n");
-		return -1;
-	}
-
-	if ( seq->n < data[indM].nMin ) {
+	if ( seq->n < data[0].nMin ) {
 		fprintf(stderr, "Error[LongestRun Test]: Sequence length too short\n");
 		return -1;
 	}
+	else if ( seq->n < data[1].nMin )
+		indM = 0;
+	else if ( seq->n < data[2].nMin )
+		indM = 1;
+	else
+		indM = 2;
 
 	class = (unsigned int *)malloc(data[indM].nbClass*sizeof(unsigned int));
 	if ( !class ) {
@@ -83,11 +78,12 @@ int longestrun_test(seq_t *seq, double *pvalue, double *param)
 
 	memset(class, 0, data[indM].nbClass*sizeof(unsigned int));
 
-	N = (int)(seq->n/M); 
+
+	N = (int)(seq->n/data[indM].M); 
 
 	for ( i = 0; i < N; i++ ) {
 
-		lr = longestrun(seq, i, M);
+		lr = longestrun(seq, i, data[indM].M);
 
 		if ( lr <= data[indM].firstClass )
 			class[0]++;

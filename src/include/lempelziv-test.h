@@ -3,6 +3,6 @@
 
 #define LEMPELZIV_TEST_LENGTH 1000000
 
-int lempelziv_test(seq_t *seq, double *pvalue, double *param);
+int lempelziv_test(seq_t *seq, double *pvalue, void *param);
 
 #endif /* !HAVE_LEMPELZIV_TEST_H */

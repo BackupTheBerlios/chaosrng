@@ -3,6 +3,6 @@
 
 #define NOTM_TEST_LENGTH 1000000
 
-int notm_test(seq_t *seq, double *pvalue);
+int notm_test(seq_t *seq, double *pvalue, void *param);
 
 #endif /* !HAVE_NOTM_TEST_H */

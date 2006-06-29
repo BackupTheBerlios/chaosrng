@@ -8,7 +8,7 @@
 #include "include/cumsum-test.h"
 
 
-int cumsum_test(seq_t *seq, double *pvalue, double *param)
+int cumsum_test(seq_t *seq, double *pvalue, void *param)
 {
 	int i, z, k, S, s, f;
 

@@ -7,15 +7,10 @@
 #include "include/seq.h"
 #include "include/otm-test.h"
 
-/*
- * TODO:
- * - Passer B en argument
- * - verification des parametres
- */
 
-int otm_test(seq_t *seq, double *pvalue)
+int otm_test(seq_t *seq, double *pvalue, void *param)
 {
-	unsigned int i, j, W, N, K = 5, M = 10, m = 2;
+	unsigned int i, j, W, N, K = 5, M = 1032, m = 2;
 	double eta, X;
 	double pi[K+1], Spi;
 	unsigned int V[K+1];
@@ -25,12 +20,10 @@ int otm_test(seq_t *seq, double *pvalue)
 	seq_t B = {&buff, 2, 1};
 	seq_init_with_uchar(&B, tab, 2);
 
-	/*
 	if ( seq->n < OTM_TEST_LENGTH ) {
-		fprintf(stderr, "Error[NOTM Test]: Sequence length too short\n");
+		fprintf(stderr, "Error[OTM Test]: Sequence length too short\n");
 		return -1;
 	}
-	*/
 
 	N = (int)(seq->n/M);
 	memset(V, 0, (K + 1)*sizeof(unsigned int));

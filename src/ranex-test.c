@@ -7,7 +7,7 @@
 #include "include/ranex-test.h"
 
 
-int ranex_test(seq_t *seq, double *pvalue, double *param)
+int ranex_test(seq_t *seq, double *pvalue, void *param)
 {
 	unsigned int i, J;
 	unsigned int V[6] = { 0, 0, 0, 0, 0, 0 };
@@ -39,9 +39,11 @@ int ranex_test(seq_t *seq, double *pvalue, double *param)
 			N++;
 	}
 
-	if ( J < 500 )
-		fprintf(stderr, "Warning[RanEx Test]: J=%d<500 Not enough excursions to compute test statistic\n", J);
-	fprintf(stdout, " %d", J);
+	if ( J < 500 ) {
+		fprintf(stderr, "Error[RanEx Test]: J=%d<500 Not enough excursions to compute test statistic\n", J);
+		return -3;
+	}
+
 	if ( S != 0 ) {
 		J++;
 		if ( N >= 5 )

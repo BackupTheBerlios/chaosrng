@@ -20,25 +20,21 @@ static unsigned int next_motif(seq_t *motif, unsigned int N)
 } 
 
 
-int approxentropy_test(seq_t *seq, double *pvalue, double *param)
+int approxentropy_test(seq_t *seq, double *pvalue, void *param)
 {
 	//unsigned int M = param[0];
-	unsigned int M;
+	unsigned int M = 3;
 	unsigned int i, j, k,  m, N, vm;
 	seq_t *motif;
 
 	double phi[2], stat;
 
 
-	//M = ((int)log2(seq->n)) - 3; 12.15 pour n = 2000*24
-	M = 3;
 	
-/*
-	if ( M >= log((double)seq->n)/log(2.0) - 2.0 ) {
-		fprintf(stderr, "Error[ApproxEntropy Test]: Sequence length too short for block size\n");
+	if ( M >= (int)(log((double)seq->n)/log(2.0)) - 2 ) {
+		fprintf(stderr, "Error[ApproxEntropy Test]: Invalid parameter\n");
 		return -1;
 	}
-*/
 
 	motif = seq_new(M);
 	if ( !motif ) { 
