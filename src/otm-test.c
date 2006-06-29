@@ -10,15 +10,12 @@
 
 int otm_test(seq_t *seq, double *pvalue, void *param)
 {
-	unsigned int i, j, W, N, K = 5, M = 1032, m = 2;
+	unsigned int i, j, W, N, K = 5, M = 1032;
 	double eta, X;
 	double pi[K+1], Spi;
 	unsigned int V[K+1];
 
-	unsigned char buff;
-	unsigned char tab[2] = {1,1};
-	seq_t B = {&buff, 2, 1};
-	seq_init_with_uchar(&B, tab, 2);
+	seq_t *B = (seq_t *)param;
 
 	if ( seq->n < OTM_TEST_LENGTH ) {
 		fprintf(stderr, "Error[OTM Test]: Sequence length too short\n");
@@ -30,9 +27,9 @@ int otm_test(seq_t *seq, double *pvalue, void *param)
 
 	for ( i = 0; i < N; i++ ) {
 
-		for ( j = 0, W = 0; j <= M - m; j++ ) {
+		for ( j = 0, W = 0; j <= M - B->n; j++ ) {
 
-			if ( seq_cmp(&B, seq, i*M + j, m) == 0 )
+			if ( seq_cmp(B, seq, i*M + j, B->n) == 0 )
 				W++;				
 		}
 
@@ -42,7 +39,7 @@ int otm_test(seq_t *seq, double *pvalue, void *param)
 			V[W]++;
 	}
 	
-	eta = (double)(M - m + 1)/pow(2.0, m + 1);
+	eta = (double)(M - B->n + 1)/pow(2.0, B->n + 1);
 	Spi = pi[0] = exp(-1.0*eta);
 	X = pow(((double)V[0]) - ((double)N)*pi[0], 2.0)/(((double)N)*pi[0]);
 

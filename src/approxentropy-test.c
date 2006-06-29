@@ -22,8 +22,7 @@ static unsigned int next_motif(seq_t *motif, unsigned int N)
 
 int approxentropy_test(seq_t *seq, double *pvalue, void *param)
 {
-	//unsigned int M = param[0];
-	unsigned int M = 3;
+	unsigned int M = (unsigned int)param;
 	unsigned int i, j, k,  m, N, vm;
 	seq_t *motif;
 

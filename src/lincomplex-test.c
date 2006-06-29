@@ -50,8 +50,7 @@ static int BerlekampMassey(seq_t *seq, unsigned int offset, unsigned int len)
 
 int lincomplex_test(seq_t *seq, double *pvalue, void *param)
 {
-	//unsigned int M = param[0];
-	unsigned int M = 2500;
+	unsigned int M = (unsigned int)param;
 	unsigned int i, j, L, N = (int)(seq->n/M);
 	int  V[7] = { 0, 0, 0, 0, 0, 0, 0 };
 	double pi[7] = { 0.01047, 0.03125, 0.125, 0.5, 0.25, 0.0625, 0.020833 };

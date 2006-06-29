@@ -9,14 +9,12 @@
 
 int notm_test(seq_t *seq, double *pvalue, void *param)
 {
-	unsigned int i, j, W, N, M = 10, m = 3;
+	unsigned int i, j, W, N, M;
 	double mu, sigma2, X;
 
-	unsigned char buff;
-	unsigned char tab[3] = {0,0,1};
-	seq_t B = {&buff, 3, 1};
-	seq_init_with_uchar(&B, tab, 3);
-	seq_print(&B, 3);
+	seq_t *B = ((notm_param_t *)param)->seq;
+
+	M = ((notm_param_t *)param)->M;
 
 	if ( seq->n < NOTM_TEST_LENGTH ) {
 		fprintf(stderr, "Error[NOTM Test]: Sequence length too short\n");
@@ -28,17 +26,17 @@ int notm_test(seq_t *seq, double *pvalue, void *param)
 		return -1;
 	}
 
-	mu = (double)(M - m + 1)/pow(2.0, m);
-	sigma2 = ((double)M)*(1.0/pow(2.0, m) - (double)(2*m-1)/pow(2.0, 2.0*m));
+	mu = (double)(M - B->n + 1)/pow(2.0, B->n);
+	sigma2 = ((double)M)*(1.0/pow(2.0, B->n) - (double)(2*B->n-1)/pow(2.0, 2.0*B->n));
 	N = (int)(seq->n/M);
 
 	for ( i = 0, X = 0.0; i < N; i++ ) {
 
-		for ( j = 0, W = 0; j <= M - m; j++ ) {
+		for ( j = 0, W = 0; j <= M - B->n; j++ ) {
 
-			if ( seq_cmp(&B, seq, i*M + j, m) == 0 ) {
+			if ( seq_cmp(B, seq, i*M + j, B->n) == 0 ) {
 				W++;
-				j += m - 1;			
+				j += B->n - 1;			
 			}
 		}
 		
