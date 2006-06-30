@@ -4,6 +4,7 @@
 
 #include "include/seq.h"
 #include "include/gen.h"
+#include "include/gen-urandom.h"
 #include "include/frequency-test.h"
 #include "include/frequencywb-test.h"
 #include "include/runs-test.h"
@@ -75,11 +76,6 @@ static void battery_test(seq_t **gen, unsigned int dim, unsigned char mask, batt
 {
 	int i, j, ret;
 
-	for ( i = 0; i < n; i++ )
-		fprintf(stdout, "%-15s ", def_battery[bat[i].id].name);
-	fprintf(stdout, "\n");
-	fflush(stdout);
-
 	for ( j = 0; j < dim; j++ ) {
 
 		if ( mask & (1<<j) ) {
@@ -93,26 +89,67 @@ static void battery_test(seq_t **gen, unsigned int dim, unsigned char mask, batt
 	}
 }
 
+static void battery_print_header(battery_t *bat, unsigned int n)
+{
+	unsigned int i;
+
+	for ( i = 0; i < n; i++ )
+		fprintf(stdout, "%-15s ", def_battery[bat[i].id].name);
+	fprintf(stdout, "\n");
+	fflush(stdout);
+}
+
 int main(int argc, char **argv)
 {
+	/*
 	seq_t **gen;
 	//double param[2] = {2.2, -0.61};
-	double param = 0.9999;
+	double param;
 	double seed[2] = {0.5, 0.6};
-	unsigned int M = 20000;
+	unsigned int M1 = 11000, M10 = 2250, M11 = 16, M12 = 16;
 	battery_t bat[] = {
 		{0, NULL},
-		{1, (void *)M},
+		{1, (void *)M1},
 		{2, NULL},
 		{3, NULL},
-		{4, NULL}
+		{4, NULL},
+		{5, NULL},
+		{8, NULL},
+		{9, NULL},
+		//{10, (void *)M10},
+		//{11, (void *)M11},
+		//{12, (void *)M12},
+		{13, NULL}
+		//{14, NULL},
+		//{15, NULL}
 	};
 
-	gen = gen1_new(100, 100000, &param, seed, 12, 10);
 
-	battery_test(gen, 2, 3, bat, 5);
+	fprintf(stdout, "%-11s", "lambda");
+	battery_print_header(bat, 8);
+
+	//param = 0.99989;
+	//param = 0.883131;
+	param = 0.7;
+
+	gen = gen1_new(10000, 250000, &param, seed, 12, 4);
+
+	do {
+		fprintf(stdout, "%.8f ", param);
+		battery_test(gen, 2, 1, bat, 8);
+
+		param += 0.00000001;
+
+
+		if ( param >= 1.0 ) 		
+			break;
+
+		gen1_init(gen, 10000, 250000, &param, seed, 12, 4);
+
+	} while ( 1 );
 
 	gen1_free(gen);
+	*/
 
 	/*
 	seq_t *seq;
@@ -123,6 +160,16 @@ int main(int argc, char **argv)
 	seq_init_with_uchar(seq, tab, 20);
 
 	maurer_test(seq, &pvalue, NULL);
+	fprintf(stdout, "%f\n", pvalue);
+	*/
+
+	/*
+	seq_t *seq;
+	double pvalue;
+
+	seq = seq_urandom_new(125000);
+
+	dft_test(seq, &pvalue, NULL);
 	fprintf(stdout, "%f\n", pvalue);
 	*/
 

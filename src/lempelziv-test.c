@@ -37,8 +37,8 @@ int lempelziv_test(seq_t *seq, double *pvalue, void *param)
 		fprintf(stderr, "Error[LempelZiv Test]: Sequence length too short\n");
 		return -1;
 	}
-	else if ( seq->n > LEMPELZIV_TEST_LENGTH )
-		fprintf(stderr, "Warning[LempelZiv Test]: %d bits discarded\n", seq->n - LEMPELZIV_TEST_LENGTH);
+	//else if ( seq->n > LEMPELZIV_TEST_LENGTH )
+	//	fprintf(stderr, "Warning[LempelZiv Test]: %d bits discarded\n", seq->n - LEMPELZIV_TEST_LENGTH);
 	
 	root.nodes[0] = NULL;
 	root.nodes[1] = NULL;

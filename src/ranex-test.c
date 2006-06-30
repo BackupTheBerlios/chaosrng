@@ -39,17 +39,17 @@ int ranex_test(seq_t *seq, double *pvalue, void *param)
 			N++;
 	}
 
-	if ( J < 500 ) {
-		fprintf(stderr, "Error[RanEx Test]: J=%d<500 Not enough excursions to compute test statistic\n", J);
-		return -3;
-	}
-
 	if ( S != 0 ) {
 		J++;
 		if ( N >= 5 )
 			V[5]++;
 		else
 			V[N]++;
+	}
+
+	if ( J < 500 ) {
+		fprintf(stderr, "Error[RanEx Test]: J=%d<500 Not enough excursions to compute test statistic\n", J);
+		return -3;
 	}
 
 	for ( i = 0, X = 0.0; i < 6; i++ )

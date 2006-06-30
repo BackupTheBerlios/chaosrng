@@ -48,6 +48,8 @@ int maurer_test(seq_t *seq, double *pvalue, void *param)
 			break;
 	}
 
+	fprintf(stdout, "L=%d\n", L);
+
 	ps =(int)pow(2,L);
 	p = (unsigned int *)malloc(ps*sizeof(unsigned int));
 	if ( !p ) {
@@ -70,9 +72,9 @@ int maurer_test(seq_t *seq, double *pvalue, void *param)
 	} 
 
 	sum /= (double)K;
-	sigma = (0.7 - 0.8/((double)L) + (4.0 + 32.0/((double)L))*pow(K, -3.0/((double)L))/15.0)*sqrt(Lparams[6 - L][1]/((double)K));
+	sigma = (0.7 - 0.8/((double)L) + (4.0 + 32.0/((double)L))*pow(K, -3.0/((double)L))/15.0)*sqrt(Lparams[L - 6][1]/((double)K));
 
-	*pvalue = 2*gsl_cdf_ugaussian_Q(fabs((sum - Lparams[6 - L][0])/sigma));
+	*pvalue = 2*gsl_cdf_ugaussian_Q(fabs((sum - Lparams[L - 6][0])/sigma));
 
 	free(p);
 

@@ -48,7 +48,7 @@ int dft_test(seq_t *seq, double *pvalue, void *param)
 	T = 0.95*sqrt((double)(3*seq->n));
 
 	for ( i = 0, N = 0; i < seq->n/2; i++ ) {
-		//fprintf(stderr, "%f %f\n", out[i][0], out[i][1]);
+		fprintf(stderr, "%f %f\n", out[i][0], out[i][1]);
 		if ( sqrt(pow(out[i][0], 2.0) + pow(out[i][1], 2.0)) < T)
 			N++;
 	}

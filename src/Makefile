@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wno-long-double -I/sw/include/gsl
 
 LIBS =  -L/sw/lib -lfftw3 -lgsl -lgslcblas -lm
 
-SRC = seq.c gen.c frequency-test.c\
+SRC = seq.c gen.c gen-urandom.c frequency-test.c\
 	frequencywb-test.c\
 	runs-test.c\
 	longestrun-test.c\
